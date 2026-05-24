@@ -54,7 +54,7 @@ SELECT
     CAST(NULLIF(TRIM(empenhado), '') AS DECIMAL(15,2)) AS empenhado,
     CAST(NULLIF(TRIM(liquidacao), '') AS DECIMAL(15,2)) AS liquidacao,
     CAST(NULLIF(TRIM(pagamento), '') AS DECIMAL(15,2)) AS pagamento,
-    CAST(NULLIF(TRIM(anulacao_empenho), '') AS DECIMAL(15,2)) AS Dynamic_anulacao_empenho,
+    CAST(NULLIF(TRIM(anulacao_empenho), '') AS DECIMAL(15,2)) AS anulacao_empenho,
     CAST(NULLIF(TRIM(anulacao_liquidacao), '') AS DECIMAL(15,2)) AS anulacao_liquidacao,
-    CAST(NULLIF(TRIM(anulacao_pagamento), '') AS DECIMAL(15,2)) AS流通_anulacao_pagamento
+    CAST(NULLIF(TRIM(anulacao_pagamento), '') AS DECIMAL(15,2)) AS anulacao_pagamento
 FROM fato_credor_empenho;
