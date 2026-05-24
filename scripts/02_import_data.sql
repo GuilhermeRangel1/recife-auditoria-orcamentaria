@@ -6,7 +6,7 @@ SET GLOBAL local_infile = 1;
 -- Dados de 2024
 LOAD DATA LOCAL INFILE 'caminho/do/diretorio/data/despesas_orgao_2024.csv'
 INTO TABLE dim_orgaos
-CHARACTER SET latin1
+CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ';' 
 OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
@@ -16,7 +16,7 @@ IGNORE 1 LINES
 -- Dados de 2025
 LOAD DATA LOCAL INFILE 'caminho/do/diretorio/data/despesas_orgao_2025.csv'
 INTO TABLE dim_orgaos
-CHARACTER SET latin1
+CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ';' 
 OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
@@ -26,7 +26,7 @@ IGNORE 1 LINES
 -- Dados de 2026
 LOAD DATA LOCAL INFILE 'caminho/do/diretorio/data/despesas_orgao_2026.csv'
 INTO TABLE dim_orgaos
-CHARACTER SET latin1
+CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ';' 
 OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
@@ -39,7 +39,7 @@ IGNORE 1 LINES
 -- Dados de 2024
 LOAD DATA LOCAL INFILE 'caminho/do/diretorio/data/despesa_funcional_2024.csv'
 INTO TABLE dim_funcional
-CHARACTER SET latin1
+CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ';' 
 OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
@@ -49,7 +49,7 @@ IGNORE 1 LINES
 -- Dados de 2025
 LOAD DATA LOCAL INFILE 'caminho/do/diretorio/data/despesa_funcional_2025.csv'
 INTO TABLE dim_funcional
-CHARACTER SET latin1
+CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ';' 
 OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
@@ -59,7 +59,7 @@ IGNORE 1 LINES
 -- Dados de 2026
 LOAD DATA LOCAL INFILE 'caminho/do/diretorio/data/despesa_funcional_2026.csv'
 INTO TABLE dim_funcional
-CHARACTER SET latin1
+CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ';' 
 OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
@@ -72,7 +72,7 @@ IGNORE 1 LINES
 -- Dados de 2024
 LOAD DATA LOCAL INFILE 'caminho/do/diretorio/data/credor_empenho_2024.csv'
 INTO TABLE fato_credor_empenho
-CHARACTER SET latin1
+CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ';' 
 OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
@@ -82,7 +82,7 @@ IGNORE 1 LINES
 -- Dados de 2025
 LOAD DATA LOCAL INFILE 'caminho/do/diretorio/data/credor_empenho_2025.csv'
 INTO TABLE fato_credor_empenho
-CHARACTER SET latin1
+CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ';' 
 OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
@@ -92,7 +92,7 @@ IGNORE 1 LINES
 -- Dados de 2026
 LOAD DATA LOCAL INFILE 'caminho/do/diretorio/data/credor_empenho_2026.csv'
 INTO TABLE fato_credor_empenho
-CHARACTER SET latin1
+CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ';' 
 OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
