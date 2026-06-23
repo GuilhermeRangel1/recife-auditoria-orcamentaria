@@ -16,6 +16,8 @@ A analise busca responder perguntas como:
 
 - **MySQL:** criacao das tabelas, importacao dos CSVs, tratamento dos dados e criacao de views.
 - **SQL:** consultas analiticas, verificacoes de qualidade e investigacoes de auditoria.
+- **Python:** geracao de indicadores de anomalia para apoiar auditoria.
+- **Machine Learning:** deteccao de registros atipicos por credor e orgao.
 - **Power BI:** construcao do dashboard interativo.
 - **Dados publicos:** arquivos extraidos do Portal da Transparencia da Prefeitura do Recife.
 
@@ -34,6 +36,7 @@ data/
   despesas_orgao_2024.csv
   despesas_orgao_2025.csv
   despesas_orgao_2026.csv
+  ml_audit_flags.csv
 img/
   parte1.jpeg
   parte2.jpeg
@@ -43,20 +46,23 @@ scripts/
   03_transform_data.sql
   04_analytics_queries.sql
   05_data_quality_checks.sql
+  ml_anomaly_detection.py
 data_dictionary.md
 insights.md
 readme.md
+requirements.txt
 ```
 
 ## Metodologia
 
-O trabalho foi organizado em cinco etapas:
+O trabalho foi organizado em seis etapas:
 
 1. **Coleta dos dados:** uso dos arquivos CSV de despesas por orgao, despesa funcional e credor/empenho.
 2. **Modelagem:** criacao de tabelas para receber os dados brutos no MySQL.
 3. **Carga:** importacao dos arquivos com `LOAD DATA LOCAL INFILE`.
 4. **Tratamento:** criacao de views com limpeza de textos e conversao de valores monetarios.
 5. **Analise:** consultas SQL e dashboard Power BI para avaliar execucao, concentracao e sinais de auditoria.
+6. **Machine learning:** geracao de score de anomalia por credor, orgao e ano.
 
 ## Dashboard
 
@@ -71,6 +77,7 @@ O trabalho foi organizado em cinco etapas:
 - `03_transform_data.sql`: cria views tratadas para analise.
 - `04_analytics_queries.sql`: concentra consultas de analise orcamentaria.
 - `05_data_quality_checks.sql`: verifica qualidade, completude e consistencia dos dados.
+- `ml_anomaly_detection.py`: gera o arquivo `data/ml_audit_flags.csv` com scores de anomalia.
 
 ## Como Executar
 
@@ -81,7 +88,9 @@ O trabalho foi organizado em cinco etapas:
 5. Execute `scripts/03_transform_data.sql`.
 6. Execute `scripts/05_data_quality_checks.sql` para validar a carga.
 7. Execute `scripts/04_analytics_queries.sql` para consultar os indicadores.
-8. Abra `dashboard/dashboard_auditoria_recife.pbix` no Power BI e atualize a conexao com o MySQL.
+8. Opcionalmente, instale as dependencias Python com `pip install -r requirements.txt`.
+9. Execute `python scripts/ml_anomaly_detection.py` para gerar `data/ml_audit_flags.csv`.
+10. Abra `dashboard/dashboard_auditoria_recife.pbix` no Power BI e atualize a conexao com o MySQL.
 
 ## Principais Analises
 
@@ -93,12 +102,14 @@ O trabalho foi organizado em cinco etapas:
 - Orgaos com baixa execucao de pagamento.
 - Diferenca entre valores empenhados e pagos.
 - Evolucao mensal dos pagamentos.
+- Score de anomalia por credor, orgao e ano.
 
 ## Limitacoes
 
 - A analise depende da qualidade e atualizacao dos dados publicados no portal.
 - O ano de 2026 pode estar parcial, dependendo da data de extracao dos arquivos.
 - Sinais encontrados por SQL indicam pontos de atencao, mas nao comprovam irregularidade sem analise documental.
+- O score de machine learning indica comportamento atipico, mas tambem nao comprova irregularidade sozinho.
 - Alguns campos textuais dos CSVs podem exigir cuidado com encoding dependendo do ambiente.
 
 ## Documentacao Complementar

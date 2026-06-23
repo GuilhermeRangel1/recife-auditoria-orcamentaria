@@ -15,6 +15,7 @@ Este documento descreve os principais arquivos, tabelas, views e indicadores usa
 | `credor_empenho_2024.csv` | Despesas por credor e empenho em 2024. |
 | `credor_empenho_2025.csv` | Despesas por credor e empenho em 2025. |
 | `credor_empenho_2026.csv` | Despesas por credor e empenho em 2026. |
+| `ml_audit_flags.csv` | Saida gerada pelo script de machine learning com scores de anomalia. |
 
 ## Tabelas
 
@@ -79,3 +80,24 @@ Campos principais:
 | Saldo empenhado nao pago | `SUM(empenhado) - SUM(pago)` | Aponta compromissos ainda nao pagos. |
 | Concentracao por credor | `pagamento do credor / pagamento total` | Mede dependencia ou concentracao em poucos recebedores. |
 | Evolucao mensal | `SUM(pagamento)` por `ano` e `mes` | Mostra sazonalidade e picos de pagamento. |
+| Score de anomalia | Pontuacao de 0 a 100 calculada por ML ou estatistica robusta | Ajuda a priorizar credores e orgaos para revisao. |
+
+## Saida de Machine Learning
+
+O arquivo `data/ml_audit_flags.csv` e gerado por `scripts/ml_anomaly_detection.py`.
+
+Campos principais:
+
+- `ano`: ano analisado.
+- `orgao`: orgao responsavel pelo pagamento.
+- `cpf_cnpj`, `nome_credor`: identificacao do credor.
+- `total_empenhado`, `total_liquidado`, `total_pago`: totais financeiros agregados.
+- `total_anulacoes`: soma das anulacoes de empenho, liquidacao e pagamento.
+- `saldo_empenhado_nao_pago`: diferenca entre total empenhado e total pago.
+- `participacao_no_ano`: peso do credor no total pago do ano.
+- `participacao_no_orgao`: peso do credor dentro do orgao no ano.
+- `quantidade_registros`: quantidade de linhas usadas na agregacao.
+- `meses_com_movimento`: quantidade de meses com movimentacao.
+- `score_anomalia`: pontuacao de comportamento atipico, de 0 a 100.
+- `risco_anomalia`: classificacao textual do score (`baixo`, `medio` ou `alto`).
+- `metodo`: tecnica usada para calcular o score.

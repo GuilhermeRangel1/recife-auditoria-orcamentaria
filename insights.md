@@ -55,7 +55,20 @@ Ele ajuda a identificar:
 - valores negativos agregados;
 - possiveis problemas de carga dos CSVs.
 
-## 6. Limitacoes
+## 6. Machine Learning para Auditoria
+
+O script `ml_anomaly_detection.py` gera uma pontuacao de anomalia para cada combinacao de ano, orgao e credor. A ideia e priorizar casos que merecem revisao, especialmente quando ha valores muito altos, concentracao relevante, recorrencia mensal ou saldo empenhado ainda nao pago.
+
+O resultado fica em `data/ml_audit_flags.csv` e pode ser importado no Power BI.
+
+Pontos de atencao:
+
+- Um score alto nao significa irregularidade.
+- O modelo ajuda a ordenar prioridades de analise.
+- A interpretacao deve ser cruzada com contratos, licitacoes e documentos oficiais.
+- Quando `scikit-learn` estiver instalado, o script usa Isolation Forest; caso contrario, usa uma pontuacao estatistica robusta como alternativa.
+
+## 7. Limitacoes
 
 Os resultados devem ser interpretados como sinais analiticos. Para concluir irregularidade, seria necessario cruzar os achados com contratos, licitacoes, notas de empenho, documentos fiscais e justificativas administrativas.
 
@@ -65,12 +78,13 @@ Tambem existem limitacoes tecnicas:
 - os arquivos dependem da atualizacao do portal;
 - campos textuais podem variar conforme encoding e formato original dos CSVs;
 - datas vazias ou campos representados de forma incomum precisam ser avaliados com cautela.
+- anomalias estatisticas podem representar situacoes normais, como grandes contratos, bancos ou despesas centralizadas.
 
-## 7. Possiveis Evolucoes
+## 8. Possiveis Evolucoes
 
-- Criar classificacao de risco por credor ou orgao.
 - Comparar variacoes percentuais entre anos.
 - Cruzar despesas com dados de contratos e licitacoes.
 - Criar indicadores de recorrencia de credores.
 - Separar pagamentos por modalidade de licitacao e orgao.
 - Automatizar uma rotina de carga e validacao dos dados.
+- Exibir o score de anomalia em uma pagina dedicada no Power BI.
