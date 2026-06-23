@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS fato_credor_empenho;
 DROP TABLE IF EXISTS dim_funcional;
 DROP TABLE IF EXISTS dim_orgaos;
 
--- Tabela de Órgãos
+-- Tabela de orgaos e unidades gestoras
 CREATE TABLE dim_orgaos (
     ano INT,
     mes INT,
@@ -27,7 +27,7 @@ CREATE TABLE dim_orgaos (
     pago VARCHAR(50)
 );
 
--- Tabela Funcional Programática
+-- Tabela da classificacao funcional-programatica
 CREATE TABLE dim_funcional (
     ano INT,
     mes INT,
@@ -48,7 +48,7 @@ CREATE TABLE dim_funcional (
     pago VARCHAR(50)
 );
 
--- Tabela Fato (Credor e Empenho)
+-- Tabela fato de credores e empenhos
 CREATE TABLE fato_credor_empenho (
     ano INT,
     mes INT,
