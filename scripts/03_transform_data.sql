@@ -1,8 +1,9 @@
 USE recife_auditoria;
 
--- 1. VIEW ANALÍTICA DE ÓRGÃOS (com limpeza e correção)
+-- 1. View analitica de orgaos
+-- Objetivo: limpar textos e converter campos monetarios para DECIMAL.
 CREATE OR REPLACE VIEW v_despesas_orgao AS
-SELECT 
+SELECT
     ano,
     mes,
     TRIM(poder) AS poder,
@@ -19,9 +20,10 @@ SELECT
     CAST(NULLIF(TRIM(pago), '') AS DECIMAL(15,2)) AS pago
 FROM dim_orgaos;
 
--- 2. VIEW ANALÍTICA DA FUNCIONAL PROGRAMÁTICA (com limpeza e correção)
+-- 2. View analitica da classificacao funcional-programatica
+-- Objetivo: padronizar textos e preparar os valores para analise.
 CREATE OR REPLACE VIEW v_despesas_funcional AS
-SELECT 
+SELECT
     ano,
     mes,
     TRIM(codigo_funcao) AS codigo_funcao,
@@ -37,9 +39,10 @@ SELECT
     CAST(NULLIF(TRIM(pago), '') AS DECIMAL(15,2)) AS pago
 FROM dim_funcional;
 
--- 3. VIEW ANALÍTICA DA TABELA FATO (com limpeza e correção)
+-- 3. View analitica da tabela fato de credores e empenhos
+-- Objetivo: limpar identificadores, textos e valores de execucao financeira.
 CREATE OR REPLACE VIEW v_fato_credor_empenho AS
-SELECT 
+SELECT
     ano,
     mes,
     TRIM(codigo_unidade) AS codigo_unidade,
