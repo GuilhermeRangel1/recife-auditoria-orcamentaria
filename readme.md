@@ -1,37 +1,107 @@
-# 📊 Auditoria Orçamentária - Prefeitura do Recife (2024-2026)
+# Auditoria Orcamentaria - Prefeitura do Recife (2024-2026)
 
-## 🎯 Sobre o Projeto
-Este projeto de Análise de Dados foca na auditoria e visualização da execução orçamentária da cidade do Recife. O objetivo é rastrear o dinheiro público de ponta a ponta: desde o orçamento aprovado em lei (dotação) até o pagamento real aos fornecedores na ponta, respondendo a perguntas como: *Onde a prefeitura mais investe? Quais empresas recebem os maiores volumes de recursos? O planejamento orçamentário está sendo cumprido?*
+## Sobre o Projeto
 
-A arquitetura do projeto consistiu em extrair microdados públicos, modelar um banco de dados relacional para tratamento (ETL) e criar visões analíticas consumidas por um dashboard interativo.
+Este projeto analisa a execucao orcamentaria da Prefeitura do Recife entre 2024 e 2026, usando dados publicos do Portal da Transparencia. A proposta e acompanhar o dinheiro publico desde a dotacao orcamentaria ate os valores empenhados, liquidados e pagos.
 
-## 🛠️ Tecnologias e Ferramentas
-* **MySQL:** Criação de tabelas Fato e Dimensão, higienização de dados (TRIM, CAST) e criação de Views para otimização de consultas.
-* **Power BI:** Conexão direta com o banco de dados, modelagem visual, cálculos e construção do dashboard interativo.
-* **Dados Públicos:** Portal da Transparência da Prefeitura do Recife.
+A analise busca responder perguntas como:
 
+- Onde a prefeitura concentra a maior parte dos recursos?
+- Quais orgaos executam os maiores volumes de pagamento?
+- Quais credores recebem os maiores valores?
+- O planejamento orcamentario esta sendo executado como previsto?
+- Existem sinais de alerta, como concentracao de pagamentos, baixa execucao ou diferencas relevantes entre empenhado e pago?
 
-## 📸 Dashboards e Principais Insights
+## Tecnologias e Ferramentas
 
-![Visão Geral - Execução e Credores](img/parte1.jpeg)
+- **MySQL:** criacao das tabelas, importacao dos CSVs, tratamento dos dados e criacao de views.
+- **SQL:** consultas analiticas, verificacoes de qualidade e investigacoes de auditoria.
+- **Power BI:** construcao do dashboard interativo.
+- **Dados publicos:** arquivos extraidos do Portal da Transparencia da Prefeitura do Recife.
 
-### 💡 Insights da Execução Financeira:
-* **Concentração de Fornecedores:** Observou-se que o Top 10 de fornecedores concentra a maior fatia do orçamento líquido pago, evidenciando quais empresas e consórcios possuem os maiores contratos com o município.
-* **Sazonalidade de Gastos:** A análise da curva de evolução mensal permite identificar os períodos de maior pico de pagamentos e liquidações ao longo do ano, auxiliando na compreensão do fluxo de caixa governamental.
+## Estrutura do Projeto
 
-![Análise Orçamentária e Eficiência](img/parte2.jpeg)
+```text
+dashboard/
+  dashboard_auditoria_recife.pbix
+data/
+  credor_empenho_2024.csv
+  credor_empenho_2025.csv
+  credor_empenho_2026.csv
+  despesa_funcional_2024.csv
+  despesa_funcional_2025.csv
+  despesa_funcional_2026.csv
+  despesas_orgao_2024.csv
+  despesas_orgao_2025.csv
+  despesas_orgao_2026.csv
+img/
+  parte1.jpeg
+  parte2.jpeg
+scripts/
+  01_create_tables.sql
+  02_import_data.sql
+  03_transform_data.sql
+  04_analytics_queries.sql
+  05_data_quality_checks.sql
+data_dictionary.md
+insights.md
+readme.md
+```
 
-### 💡 Insights do Planejamento Orçamentária:
-* **Eficiência Orçamentária (Dotação vs. Gasto Real):** Ao cruzar o orçamento autorizado (Dotação Atualizada) com o valor efetivamente pago, nota-se que grandes secretarias operam dentro do limite planejado, apresentando uma margem de segurança e controle sobre o teto de gastos.
-* **Foco Funcional:** O gráfico de categorias e funções destaca visualmente as áreas prioritárias de alocação de recursos (como Saúde, Educação ou Urbanismo), mapeando a distribuição estratégica dos impostos arrecadados em Recife.
+## Metodologia
 
+O trabalho foi organizado em cinco etapas:
 
-## ⚙️ Como Executar Este Projeto
+1. **Coleta dos dados:** uso dos arquivos CSV de despesas por orgao, despesa funcional e credor/empenho.
+2. **Modelagem:** criacao de tabelas para receber os dados brutos no MySQL.
+3. **Carga:** importacao dos arquivos com `LOAD DATA LOCAL INFILE`.
+4. **Tratamento:** criacao de views com limpeza de textos e conversao de valores monetarios.
+5. **Analise:** consultas SQL e dashboard Power BI para avaliar execucao, concentracao e sinais de auditoria.
 
-1. Faça o clone do repositório.
-2. Baixe os arquivos CSV do Portal da Transparência (ou utilize os da pasta `/data`).
-3. No MySQL, execute os scripts na ordem:
-   - `01_create_tables.sql` (Cria a estrutura Fato/Dimensão).
-   - `02_import_data.sql` (Realiza a carga dos dados. **Nota:** Lembre-se de alterar o caminho `'caminho/do/diretorio/data/...'` no script para o seu diretório local).
-   - `03_transform_data.sql` (Cria as Views limpas e tipadas).
-4. Abra o arquivo `dashboard_auditoria_recife.pbix` no Power BI e atualize a fonte de dados com suas credenciais locais do MySQL.
+## Dashboard
+
+![Visao Geral - Execucao e Credores](img/parte1.jpeg)
+
+![Analise Orcamentaria e Eficiencia](img/parte2.jpeg)
+
+## Scripts SQL
+
+- `01_create_tables.sql`: cria o banco e as tabelas de apoio.
+- `02_import_data.sql`: importa os CSVs para o MySQL.
+- `03_transform_data.sql`: cria views tratadas para analise.
+- `04_analytics_queries.sql`: concentra consultas de analise orcamentaria.
+- `05_data_quality_checks.sql`: verifica qualidade, completude e consistencia dos dados.
+
+## Como Executar
+
+1. Clone ou baixe este repositorio.
+2. Abra o MySQL e execute `scripts/01_create_tables.sql`.
+3. No arquivo `scripts/02_import_data.sql`, substitua `caminho/do/diretorio/data/` pelo caminho absoluto da pasta `data` no seu computador.
+4. Execute `scripts/02_import_data.sql`.
+5. Execute `scripts/03_transform_data.sql`.
+6. Execute `scripts/05_data_quality_checks.sql` para validar a carga.
+7. Execute `scripts/04_analytics_queries.sql` para consultar os indicadores.
+8. Abra `dashboard/dashboard_auditoria_recife.pbix` no Power BI e atualize a conexao com o MySQL.
+
+## Principais Analises
+
+- Eficiencia orcamentaria por ano.
+- Ranking dos orgaos com maior pagamento.
+- Ranking de funcoes com maior execucao.
+- Maiores credores da prefeitura.
+- Concentracao de pagamentos por credor.
+- Orgaos com baixa execucao de pagamento.
+- Diferenca entre valores empenhados e pagos.
+- Evolucao mensal dos pagamentos.
+
+## Limitacoes
+
+- A analise depende da qualidade e atualizacao dos dados publicados no portal.
+- O ano de 2026 pode estar parcial, dependendo da data de extracao dos arquivos.
+- Sinais encontrados por SQL indicam pontos de atencao, mas nao comprovam irregularidade sem analise documental.
+- Alguns campos textuais dos CSVs podem exigir cuidado com encoding dependendo do ambiente.
+
+## Documentacao Complementar
+
+- `data_dictionary.md`: descreve arquivos, tabelas, campos e indicadores.
+- `insights.md`: registra interpretacoes e possiveis linhas de investigacao.
